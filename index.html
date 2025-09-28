@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f9d58">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <title>Meme Spotter – Simple</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>🪙 Meme Spotter</h1>
+    <div class="actions">
+      <button id="refreshBtn" class="primary">Refresh</button>
+      <button id="exportBtn">Export CSV</button>
+      <button id="installBtn" hidden>Install</button>
+    </div>
+  </header>
+
+  <section class="strip">
+    <div class="chips">
+      <button class="chip" data-chain="solana">SOL</button>
+      <button class="chip" data-chain="base">BASE</button>
+    </div>
+    <div class="presets">
+      <label>Preset</label>
+      <select id="presetSelect">
+        <option value="spicy">Spicy (early)</option>
+        <option value="balanced" selected>Balanced</option>
+        <option value="safe">Safe</option>
+      </select>
+    </div>
+    <label class="switch">
+      <input id="includeLowActivity" type="checkbox">
+      <span>Include low activity</span>
+    </label>
+    <button id="advancedBtn">Advanced</button>
+  </section>
+
+  <section id="advancedPanel" class="panel hidden">
+    <h3>Advanced filters (optional)</h3>
+    <div class="grid">
+      <label>Min Liquidity (USD)<input id="minLiquidityUSD" type="number" step="100"></label>
+      <label>Min Volume 24h (USD)<input id="minVolumeH24" type="number" step="100"></label>
+      <label>Min Buys 24h<input id="minTxnsH24Buys" type="number"></label>
+      <label>Min Sells 24h<input id="minTxnsH24Sells" type="number"></label>
+      <label>Max Pair Age (hours)<input id="maxPairAgeHours" type="number"></label>
+      <label>FDV Min<input id="fdvMin" type="number"></label>
+      <label>FDV Max<input id="fdvMax" type="number"></label>
+      <label>Show Top N<input id="topN" type="number"></label>
+    </div>
+
+    <h4>Weights</h4>
+    <div class="grid">
+      <label>Liquidity<input id="wLiq" type="number" step="0.05"></label>
+      <label>Vol 24h<input id="wVol" type="number" step="0.05"></label>
+      <label>Momentum 5m<input id="wMom" type="number" step="0.05"></label>
+      <label>Age<input id="wAge" type="number" step="0.05"></label>
+      <label>FDV Fit<input id="wFdv" type="number" step="0.05"></label>
+    </div>
+
+    <div class="row right">
+      <button id="resetBtn">Reset</button>
+      <button id="saveBtn">Save</button>
+      <button id="advancedClose">Close</button>
+    </div>
+  </section>
+
+  <section class="toolbar">
+    <input id="addrInput" placeholder="Paste token or pair address…">
+    <button id="analyzeBtn">Analyze</button>
+    <span id="lastRun" class="muted"></span>
+  </section>
+
+  <main id="cards" class="cards"></main>
+  <div id="toast" class="toast hidden"></div>
+
+  <script type="module" src="scorer.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
